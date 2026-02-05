@@ -1,0 +1,284 @@
+<!DOCTYPE html><html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Lucu 😳</title><link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet"><style>
+body{
+font-family:'Chewy',cursive;
+margin:0;
+overflow:hidden;
+background:linear-gradient(270deg,#ffeef2,#ffd6ea,#ffeef2);
+background-size:600% 600%;
+animation:bgMove 12s ease infinite;
+}
+
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+/* PAGE 1 */
+#page1{
+text-align:center;
+padding-top:6vh;
+}
+
+#page1 img{
+width:40vw;
+min-width:150px;
+max-width:240px;
+animation:bounce 2s infinite;
+}
+
+@keyframes bounce{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-8px)}
+}
+
+h1{font-size:7vw;}
+
+#pesan{
+color:red;
+font-size:4vw;
+height:22px;
+}
+
+/* BUTTONS */
+#btnContainer{
+margin-top:5vh;
+display:flex;
+justify-content:center;
+gap:6vw;
+}
+
+button{
+width:36vw;
+height:12vw;
+font-size:5vw;
+border:none;
+border-radius:16px;
+cursor:pointer;
+font-family:'Chewy',cursive;
+transition:.25s;
+}
+
+#btnYa{
+background:#7CFF8A;
+animation:pulse 1.8s infinite;
+}
+
+#btnYa:hover{
+box-shadow:0 0 20px #7CFF8A;
+}
+
+#btnTidak{background:#FF7C7C;}
+
+@keyframes pulse{
+0%{transform:scale(1)}
+50%{transform:scale(1.05)}
+100%{transform:scale(1)}
+}
+
+/* POPUP */
+#popup{
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%) scale(.7);
+background:white;
+padding:6vw;
+border-radius:45px;
+width:85vw;
+text-align:center;
+box-shadow:0 0 40px rgba(0,0,0,.35);
+animation:pop .35s forwards;
+}
+
+@keyframes pop{
+to{transform:translate(-50%,-50%) scale(1)}
+}
+
+#popup img{
+width:50vw;
+min-width:170px;
+}
+
+#popup h2{
+font-size:7vw;
+}
+
+#lanjut{
+width:42vw;
+height:12vw;
+font-size:5vw;
+margin-top:3vh;
+}
+
+/* PAGE 2 */
+#page2{
+display:none;
+text-align:center;
+padding-top:5vh;
+}
+
+#page2 h2{
+font-size:6vw;
+}
+
+#page2 img{
+width:30vw;
+margin-top:10px;
+border-radius:18px;
+}
+
+.line{
+opacity:0;
+font-size:5vw;
+margin:10px auto;
+max-width:90vw;
+text-align:center;
+transition:1.5s;
+}
+.show{opacity:1;}
+
+/* HEARTS */
+.heart{
+position:fixed;
+top:-20px;
+font-size:6vw;
+animation:fall linear forwards;
+z-index:1;
+}
+
+@keyframes fall{
+to{transform:translateY(110vh);opacity:0;}
+}
+
+/* sparkle */
+.spark{
+position:fixed;
+font-size:20px;
+animation:spark .8s forwards;
+}
+@keyframes spark{
+to{transform:scale(2);opacity:0;}
+}
+</style></head><body><div id="page1">
+<img src="https://media.tenor.com/J8ZohzxsHnQAAAAi/cat-tongue-shake-cat-tongue.gif">
+<h1>apakah Amel sayang aku?😣</h1>
+<div id="pesan"></div><div id="btnContainer">
+<button id="btnYa">Ya</button>
+<button id="btnTidak">Tidak</button>
+</div>
+</div><div id="popup">
+<img src="https://media.tenor.com/VhCWjJwTXNAAAAAi/happy-happy-happy.gif">
+<h2>Yeaayy 💖</h2>
+<button id="lanjut">Lanjut</button>
+</div><div id="page2">
+<h2>Aku juga sayang kamu😘</h2>
+<img src="1.jpg"><div id="lineBox">
+<div class="line">Kamu imut yaa!</div>
+<div class="line">Kamu baik yaa!</div>
+<div class="line">Kamu hebat yaa!</div>
+<div class="line">Aku cinta kamu!</div>
+<div class="line">Aku sangat menyukaimu!</div>
+<div class="line">Jangan memaksakan diri ya!</div>
+<div class="line">Terima kasih telah lahir kedunia🥰</div>
+</div>
+</div><audio id="noSound" src="Tidak.mp3"></audio>
+<audio id="yesSound" src="happy.mp3"></audio>
+<audio id="bgm2" src="kawai.mp3" loop></audio>
+<audio id="lineSound" src="https://www.myinstants.com/media/sounds/pop-up-off.mp3"></audio>
+
+<script>
+let btnTidak=document.getElementById("btnTidak");
+let btnYa=document.getElementById("btnYa");
+let pesan=document.getElementById("pesan");
+let popup=document.getElementById("popup");
+let lanjut=document.getElementById("lanjut");
+let page1=document.getElementById("page1");
+let page2=document.getElementById("page2");
+
+let noSound=document.getElementById("noSound");
+let yesSound=document.getElementById("yesSound");
+let bgm2=document.getElementById("bgm2");
+let lineSound=document.getElementById("lineSound");
+
+let scale=1,klik=0;
+
+btnTidak.onclick=()=>{
+noSound.currentTime=0; noSound.play();
+
+btnTidak.style.position="fixed";
+btnTidak.style.left=Math.random()*(innerWidth-btnTidak.offsetWidth)+"px";
+btnTidak.style.top=Math.random()*(innerHeight-btnTidak.offsetHeight)+"px";
+
+scale-=0.08;
+if(scale>0.05)
+btnTidak.style.transform=`scale(${scale})`;
+else
+btnTidak.style.display="none";
+
+klik++;
+if(klik<=2) pesan.textContent="coba lagi";
+else if(klik==3) pesan.textContent="aku tidak suka jawaban mu";
+else pesan.textContent='tekan "Ya" dongg 😣';
+};
+
+btnYa.onclick=()=>{
+navigator.vibrate?.(120);
+yesSound.loop=true;
+yesSound.play();
+popup.style.display="block";
+sparkles();
+};
+
+lanjut.onclick=()=>{
+yesSound.pause();
+popup.style.display="none";
+page1.style.display="none";
+page2.style.display="block";
+bgm2.play();
+startLines();
+startHearts();
+};
+
+function startLines(){
+let timings=[100,1200,2400,3800,5400,6800,8200];
+document.querySelectorAll(".line").forEach((l,i)=>{
+setTimeout(()=>{
+lineSound.currentTime=0;
+lineSound.play();
+l.classList.add("show");
+},timings[i]);
+});
+}
+
+function startHearts(){
+let emojis=["💖","💘","💗","💞"];
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
+h.style.left=Math.random()*100+"vw";
+h.style.animationDuration=(3+Math.random()*3)+"s";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),6000);
+},300);
+}
+
+function sparkles(){
+for(let i=0;i<12;i++){
+let s=document.createElement("div");
+s.className="spark";
+s.innerHTML="✨";
+s.style.left=(50+Math.random()*10-5)+"vw";
+s.style.top=(40+Math.random()*10-5)+"vh";
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),800);
+}
+}
+</script></body>
+</html>
